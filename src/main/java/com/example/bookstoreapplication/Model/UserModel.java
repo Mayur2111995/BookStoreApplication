@@ -24,6 +24,9 @@ public class UserModel {
     private String password;
     private String email;
 
+    private boolean verify;
+
+
     public UserModel(UserDto userDto) {
      this.firstName=userDto.getFirstName();
      this.lastName=userDto.getLastName();
@@ -34,6 +37,11 @@ public class UserModel {
 
     public UserModel() {
         super();
+
+
+    }
+
+    public UserModel(String login_successfully) {
 
     }
 

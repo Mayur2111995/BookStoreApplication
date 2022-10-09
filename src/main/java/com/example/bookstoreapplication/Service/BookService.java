@@ -4,6 +4,7 @@ import com.example.bookstoreapplication.Dto.BookDto;
 import com.example.bookstoreapplication.Exception.BookException;
 import com.example.bookstoreapplication.Model.BookModel;
 import com.example.bookstoreapplication.Repository.IBookRepository;
+import com.example.bookstoreapplication.Util.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,8 @@ public class BookService  implements IBookService {
     @Autowired
     IBookRepository bookRepo;
 
+    @Autowired
+    TokenUtil tokenUtil;
 
     @Override
     public BookModel create(BookDto bookDto) {

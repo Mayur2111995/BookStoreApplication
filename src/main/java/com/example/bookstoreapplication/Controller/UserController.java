@@ -46,4 +46,13 @@ public class UserController {
 
     }
 
+    @GetMapping("/login/{email}/{password}")
+    public String login(@PathVariable String email, @PathVariable String password) {
+        return userService.login(email,password);
+    }
+    @PutMapping("/verify/{token}")
+    public String verify(@PathVariable String token) {
+        return userService.verify(token);
+    }
+
 }

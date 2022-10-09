@@ -8,6 +8,7 @@ import com.example.bookstoreapplication.Model.UserModel;
 import com.example.bookstoreapplication.Repository.IBookRepository;
 import com.example.bookstoreapplication.Repository.ICartRepository;
 import com.example.bookstoreapplication.Repository.IUserRepository;
+import com.example.bookstoreapplication.Util.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,9 @@ public class CartService implements ICartService {
 
     @Autowired
     ICartRepository cartRepo;
+
+    @Autowired
+    TokenUtil tokenUtil;
     @Autowired
     IUserRepository userRepo;
     @Autowired

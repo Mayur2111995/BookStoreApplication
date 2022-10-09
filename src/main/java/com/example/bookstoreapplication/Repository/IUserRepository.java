@@ -8,8 +8,7 @@ import java.util.Optional;
 
 @Repository
 public interface IUserRepository extends JpaRepository<UserModel, Long>{
-//
-//    Optional<UserModel> findByEmail(String mail);
-//
-//    Optional<UserModel> delete(long id);
+    Optional<UserModel> findByEmail(String mail);
+
+
 }
