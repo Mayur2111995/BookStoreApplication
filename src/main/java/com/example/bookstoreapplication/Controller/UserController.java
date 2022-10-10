@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/bookstore")
@@ -51,7 +52,7 @@ public class UserController {
         return userService.login(email,password);
     }
     @PutMapping("/verify/{token}")
-    public String verify(@PathVariable String token) {
+    public Optional<UserModel> verify(@PathVariable String token) {
         return userService.verify(token);
     }
 

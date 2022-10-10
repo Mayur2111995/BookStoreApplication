@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
+
 public interface ICartRepository extends JpaRepository <CartModel,Long>{
 
    @Query(value="select * from cart_model where user_id =:id",nativeQuery=true)

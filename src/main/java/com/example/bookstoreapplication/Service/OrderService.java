@@ -21,13 +21,14 @@ public class OrderService implements IOrderService {
 
     @Autowired
     TokenUtil tokenUtil;
+
     @Autowired
     IBookRepository bookRepo;
     @Autowired
     IOrderRepository orderRepo;
 
     @Override
-    public OrderModel create(OrderDto orderDto) {
+    public OrderModel createOrder(OrderDto orderDto) {
         Optional<BookModel> book = bookRepo.findById(orderDto.getBookID());  //reference by inject bookrepo
 
         Optional<UserModel> user = userRepo.findById(orderDto.getUserID());
@@ -43,13 +44,24 @@ public class OrderService implements IOrderService {
         return null;
     }
 
-    @Override
-    public List<OrderModel> getOrdersForUser(long id) {
-        Optional<UserModel> user = userRepo.findById(id);
-        List<OrderModel> ordersList = orderRepo.findAllByUserId(id);
-        return ordersList;
-    }
 
+    @Override
+public List<OrderModel> getAllOrderRecords() {
+    List<OrderModel> orderList = orderRepo.findAll();
+    return orderList;
+}
+
+    @Override
+    public OrderModel deleteOrderRecord(long id) {
+        Optional<OrderModel> order = orderRepo.findById(id);
+        if (order.isPresent()) {
+            orderRepo.deleteById(id);
+            return order.get();
+
+        } else {
+            return null;     //Order Record doesn't exists
+        }
+    }
 
 }
 

@@ -8,7 +8,8 @@ import java.util.List;
 
 public interface IBookService {
 
-    BookModel create(BookDto bookDto);
+
+    BookModel createBook(BookDto bookDto);
 
     List<BookModel> getList();
 
@@ -18,11 +19,7 @@ public interface IBookService {
 
     BookModel getBookModelById(long Id);
 
-//    List<BookModel> getsortPriceHighToLow();
-//
-//    abstract BookModel getsortPriceLowToHigh();
-//
-//    Object sortPriceHighToLow();
-//
-//    Object sortPriceLowToHigh();
+    List<BookModel> sortedListOfBooksInAscendingOrder();
+
+    List<BookModel> sortedListOfBooksInDescendingOrder();
 }

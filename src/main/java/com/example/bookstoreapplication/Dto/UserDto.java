@@ -11,4 +11,8 @@ public class UserDto {
     private String dob;
     private String password;
     private String email;
+
+    public int getErrorCode() {
+        return 0;
+    }
 }

@@ -81,15 +81,17 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public String verify(String token) {
+    public Optional<UserModel> verify(String token) {
         Long id = tokenUtil.decodeToken(token);
         Optional<UserModel> user = userRepo.findById(id);
         if(user.isPresent()) {
             user.get().setVerify(true);
             userRepo.save(user.get());
         }
-        return "Verified";
+        return user;
     }
+
+
 
 
         }

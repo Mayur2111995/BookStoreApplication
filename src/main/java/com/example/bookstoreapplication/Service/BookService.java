@@ -21,7 +21,7 @@ public class BookService  implements IBookService {
     TokenUtil tokenUtil;
 
     @Override
-    public BookModel create(BookDto bookDto) {
+    public BookModel createBook(BookDto bookDto) {
         BookModel book = new BookModel(bookDto);
         bookRepo.save(book);
         return book;
@@ -57,19 +57,17 @@ public class BookService  implements IBookService {
         return bookRepo.findById(Id)
                 .orElseThrow(() -> new BookException("Book not found In the List"));
     }
+    @Override
+    public List<BookModel> sortedListOfBooksInAscendingOrder() {
+        List<BookModel> getSortedList=  bookRepo.getSortedListOfBooksInAsc();
+        return getSortedList;
+    }
 
-//    @Override
-//    public List<BookModel> getsortPriceHighToLow(){
-//        List<BookModel> bookModel=bookRepo.sortPriceHighToLow();
-//        return bookModel;
-//    }
-//    @Override
-//    public List<BookModel> getsortPriceLowToHigh(){
-//        List<BookModel> bookModel=bookRepo.sortPriceLowToHigh();
-//        return bookModel;
-//    }
+    @Override
+    public List<BookModel> sortedListOfBooksInDescendingOrder() {
+        List<BookModel> getSortedListInDesc = bookRepo.getSortedListOfBooksInDesc();
+        return getSortedListInDesc;
 
-
-
+    }
 
 }

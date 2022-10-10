@@ -1,6 +1,4 @@
 package com.example.bookstoreapplication.Controller;
-
-
 import com.example.bookstoreapplication.Dto.BookDto;
 import com.example.bookstoreapplication.Dto.ResponseDto;
 import com.example.bookstoreapplication.Model.BookModel;
@@ -9,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -17,9 +17,12 @@ public class BookController {
     @Autowired
     IBookService bookService;
 
-    @PostMapping("/create")
-    public BookModel create(@RequestBody BookDto bookDto) {
-        return bookService.create(bookDto);
+
+    @PostMapping("/save")
+    public ResponseEntity<ResponseDto> addUserInBookStore(@Valid @RequestBody BookDto bookDto) {
+        BookModel newBook = bookService.createBook(bookDto);
+        ResponseDto responseDto = new ResponseDto("Created the new book in book store", newBook);
+        return new ResponseEntity(responseDto, HttpStatus.CREATED);
     }
 
     @GetMapping("/getlist")
@@ -45,20 +48,20 @@ public class BookController {
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
-//    @GetMapping("/sortPriceHighToLow")
-//    public ResponseEntity<ResponseDto> sortPriceHighToLow(){
-//        BookModel bookModel = (BookModel) bookService.getsortPriceHighToLow();
-//        ResponseDto responseDto= new ResponseDto("Geting Book By Id",bookService.sortPriceHighToLow());
-//        return new ResponseEntity<>(responseDto,HttpStatus.OK);
-//    }
-//
-//    @GetMapping("/sortPriceLowToHigh")
-//    public ResponseEntity<ResponseDto> sortPriceLowToHigh(){
-//         BookModel bookModel = bookService.getsortPriceLowToHigh();
-//        ResponseDto responseDto= new ResponseDto("Geting Book By Id",bookService.sortPriceLowToHigh());
-//        return new ResponseEntity<>(responseDto,HttpStatus.OK);
-//    }
+    @GetMapping("/sortAsc")
+    public ResponseEntity<ResponseDto> getBooksInAscendingOrder() {
+        List<BookModel> listOfBooks = bookService.sortedListOfBooksInAscendingOrder();
+        ResponseDto responseDto = new ResponseDto("Data retrieved successfully :", listOfBooks);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
 
+    }
 
+    @GetMapping("/sortDesc")
+    public ResponseEntity<ResponseDto> getBooksInDescendingOrder() {
+        List<BookModel> listOfBooks = bookService.sortedListOfBooksInDescendingOrder();
+        ResponseDto responseDto = new ResponseDto("Data retrieved successfully :", listOfBooks);
+        return new ResponseEntity(responseDto, HttpStatus.OK);
+
+    }
 
 }

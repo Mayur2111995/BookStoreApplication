@@ -20,4 +20,8 @@ public class ResponseDto {
     public ResponseDto(int i, String successfull, OrderModel order) {
 
     }
+
+    public int getErrorCode() {
+        return 0;
+    }
 }

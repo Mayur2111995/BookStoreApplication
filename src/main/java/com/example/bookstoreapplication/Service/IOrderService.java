@@ -8,9 +8,9 @@ import java.util.List;
 public interface IOrderService {
 
 
-    OrderModel create(OrderDto orderDto);
+    OrderModel createOrder(OrderDto orderDto);
 
-    List<OrderModel> getOrdersForUser(long id);
+    List<OrderModel> getAllOrderRecords();
 
-
+    OrderModel deleteOrderRecord(long id);
 }
