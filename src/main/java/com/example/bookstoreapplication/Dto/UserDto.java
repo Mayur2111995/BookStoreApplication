@@ -12,7 +12,7 @@ public class UserDto {
     private String password;
     private String email;
 
-    public int getErrorCode() {
-        return 0;
-    }
+//    public int getErrorCode() {
+//        return 0;
+//    }
 }

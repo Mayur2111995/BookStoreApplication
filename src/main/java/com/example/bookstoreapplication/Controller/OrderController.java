@@ -40,4 +40,11 @@ public ResponseEntity<ResponseDto> createOrder(@Valid @RequestBody OrderDto orde
         return new ResponseEntity(responseDto, HttpStatus.ACCEPTED);
     }
 
+//    @PutMapping("/updateOrder/{id}")
+//    public ResponseEntity<ResponseDto> updateBookRecord(@PathVariable long id,@Valid @RequestBody OrderDto orderDto){
+//        OrderModel newOrder = orderService.updateOrderRecord(id,orderDto);
+//        ResponseDto responseDto = new ResponseDto("Record updated successfully !",newOrder);
+//        return new ResponseEntity(responseDto,HttpStatus.ACCEPTED);
+//    }
+
 }

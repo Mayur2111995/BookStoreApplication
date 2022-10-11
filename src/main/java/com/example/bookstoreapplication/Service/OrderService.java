@@ -46,10 +46,10 @@ public class OrderService implements IOrderService {
 
 
     @Override
-public List<OrderModel> getAllOrderRecords() {
-    List<OrderModel> orderList = orderRepo.findAll();
-    return orderList;
-}
+    public List<OrderModel> getAllOrderRecords() {
+        List<OrderModel> orderList = orderRepo.findAll();
+        return orderList;
+    }
 
     @Override
     public OrderModel deleteOrderRecord(long id) {
@@ -63,5 +63,29 @@ public List<OrderModel> getAllOrderRecords() {
         }
     }
 
+//    @Override
+//    public OrderModel updateOrderRecord(long id, OrderDto orderDto) {
+//        Optional<OrderModel> order = orderRepo.findById(id);
+//        Optional<BookModel> book = bookRepo.findById(orderDto.getBookID());
+//        Optional<UserModel> user = userRepo.findById(orderDto.getUserID());
+//        if (order.isPresent()) {
+//            if (book.isPresent() && user.isPresent()) {
+//                if (orderDto.getQuantity() < book.get().getQuantity()) {
+//                    OrderModel newOrder = new OrderModel(id, orderDto.getQuantity(), orderDto.getAddress(), book.get(), user.get(), orderDto.isCancel());
+//                    orderRepo.save(newOrder);
+//                    return newOrder;
+//                } else {
+//                    return null;//Requested quantity is not available
+//                }
+//            } else {
+//                return null;//Book or User doesn't exists
+//
+//            }
+//
+//        } else {
+//            return null;//Order Record doesn't exist
+//        }
+//
+//    }
 }
 

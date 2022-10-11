@@ -12,4 +12,7 @@ public class OrderDto {
     private String email;
     private Long bookID;
 
+    public Object isCancel() {
+        return null;
+    }
 }

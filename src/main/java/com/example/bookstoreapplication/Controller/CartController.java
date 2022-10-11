@@ -1,7 +1,6 @@
 package com.example.bookstoreapplication.Controller;
 
 import com.example.bookstoreapplication.Dto.CartDto;
-import com.example.bookstoreapplication.Model.BookModel;
 import com.example.bookstoreapplication.Model.CartModel;
 import com.example.bookstoreapplication.Service.ICartService;
 import org.springframework.beans.factory.annotation.Autowired;

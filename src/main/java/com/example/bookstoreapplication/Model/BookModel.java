@@ -44,4 +44,7 @@ public class BookModel {
         super();
     }
 
+//    public Object getBookName() {
+//        return null;
+//    }
 }

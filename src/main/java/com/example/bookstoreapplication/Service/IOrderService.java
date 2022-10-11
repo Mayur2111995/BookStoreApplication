@@ -13,4 +13,6 @@ public interface IOrderService {
     List<OrderModel> getAllOrderRecords();
 
     OrderModel deleteOrderRecord(long id);
+
+//    OrderModel updateOrderRecord(long id, OrderDto orderDto);
 }

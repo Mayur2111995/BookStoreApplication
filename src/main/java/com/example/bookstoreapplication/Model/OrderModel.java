@@ -44,5 +44,13 @@ public class OrderModel {
 
     public OrderModel() {
 
+
+    }
+
+    public OrderModel(long id, Integer quantity, String address, BookModel bookModel, UserModel userModel, Object cancel, Object bookName) {
+
+    }
+
+    public OrderModel(long id, Integer quantity, String address, BookModel bookModel, UserModel userModel, Object cancel) {
     }
 }
