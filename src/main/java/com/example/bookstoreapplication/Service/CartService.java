@@ -15,12 +15,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+
 @Service
 public class CartService implements ICartService {
-
     @Autowired
     ICartRepository cartRepo;
-
     @Autowired
     TokenUtil tokenUtil;
     @Autowired
@@ -34,7 +33,7 @@ public class CartService implements ICartService {
         Optional<UserModel> user = userRepo.findById(cartDto.getUserID());
         if (book.isPresent() && user.isPresent()) {
             if (cartDto.getQuantity() < book.get().getQuantity()) {
-                CartModel newCart = new CartModel(cartDto, book.get(), user.get());
+                CartModel newCart = new CartModel(cartDto,book.get(),user.get());
                 cartRepo.save(newCart);
                 book.get().setQuantity(book.get().getQuantity() - cartDto.getQuantity());
                 bookRepo.save(book.get());
@@ -72,10 +71,24 @@ public class CartService implements ICartService {
 
     @Override
     public List<CartModel> gerCartForUser(long id) {
-		//Long id = tokenUtil.decodeToken(token);
+//		Long id = tokenUtil.decodeToken(token);
         Optional<UserModel> user = userRepo.findById(id);
         List<CartModel> cartList = cartRepo.findAllByUserId(id);
         return cartList;
+    }
+
+    @Override
+    public CartModel updateQuantity(String token, long cartId, int quantity) {
+        Long id = tokenUtil.decodeToken(token);
+        Optional<UserModel> user = userRepo.findById(id);
+        if (user.isPresent()) {
+            Optional<CartModel> cart = cartRepo.findById(cartId);
+            cart.get().setQuantity(quantity);
+            cart.get().setTotalPrice(quantity*cart.get().getBook().getPrice());
+            cartRepo.save(cart.get());
+            return cart.get();
+        }
+        return null;
     }
 
     @Override
@@ -92,13 +105,6 @@ public class CartService implements ICartService {
         List list = cartRepo.findAll();
         int count = list.size();
         return count;
-    }
-
-    @Override
-    public List<CartModel> getList() {
-        List<CartModel> list=cartRepo.findAll();
-        return list;
-
     }
 
 

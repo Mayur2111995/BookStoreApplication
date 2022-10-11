@@ -11,8 +11,9 @@ public class OrderDto {
     private Long userID;
     private String email;
     private Long bookID;
+    private Integer totalPrice;
 
-    public Object isCancel() {
-        return null;
-    }
+//    public Object isCancel() {
+//        return null;
+//    }
 }

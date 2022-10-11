@@ -14,5 +14,4 @@ public interface IOrderService {
 
     OrderModel deleteOrderRecord(long id);
 
-//    OrderModel updateOrderRecord(long id, OrderDto orderDto);
 }

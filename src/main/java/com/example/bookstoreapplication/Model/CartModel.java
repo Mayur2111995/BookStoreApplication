@@ -23,7 +23,7 @@ public class CartModel {
     private Integer totalPrice;
 
     public CartModel(CartDto cartDto, BookModel bookModel, UserModel userModel) {
-        this.quantity = cartDto.getQuantity();
+        this.quantity=cartDto.getQuantity();
         this.totalPrice=cartDto.getQuantity()*bookModel.getPrice();
         this.book=bookModel;
         this.user=userModel;

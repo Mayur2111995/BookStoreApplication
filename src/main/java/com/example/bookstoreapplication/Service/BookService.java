@@ -28,13 +28,13 @@ public class BookService  implements IBookService {
     }
 
     @Override
-    public List<BookModel> getList() {
-        List<BookModel> lst = bookRepo.findAll();
-        return lst;
+    public List<BookModel> getAllBookData() {
+        List<BookModel> getBooks=bookRepo.findAll();
+        return getBooks;
     }
 
     @Override
-    public BookModel update(BookDto bookDto, long id) {
+    public BookModel updateRecordById(BookDto bookDto, long id) {
         Optional<BookModel> book = bookRepo.findById(id);
         book.get().setAuthor(bookDto.getAuthor());
         book.get().setDesc(bookDto.getDesc());
@@ -47,7 +47,7 @@ public class BookService  implements IBookService {
     }
 
     @Override
-    public BookModel delete(long id) {
+    public BookModel deleteRecordById(long id) {
         Optional<BookModel> book = bookRepo.findById(id);
         bookRepo.delete(book.get());
         return book.get();
@@ -67,6 +67,11 @@ public class BookService  implements IBookService {
     public List<BookModel> sortedListOfBooksInDescendingOrder() {
         List<BookModel> getSortedListInDesc = bookRepo.getSortedListOfBooksInDesc();
         return getSortedListInDesc;
+
+    }
+
+    @Override
+    public void deleteRecordByBookId(int bookId) {
 
     }
 

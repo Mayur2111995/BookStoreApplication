@@ -1,4 +1,5 @@
 package com.example.bookstoreapplication.Controller;
+import com.example.bookstoreapplication.Dto.LoginDto;
 import com.example.bookstoreapplication.Dto.ResponseDto;
 import com.example.bookstoreapplication.Dto.UserDto;
 import com.example.bookstoreapplication.Model.UserModel;
@@ -25,9 +26,11 @@ public class UserController {
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
-    @GetMapping("/getlist")
-    public List<UserModel> getList(){
-        return userService.getList();
+    @GetMapping("/getAll")
+    public ResponseEntity<ResponseDto> getAllUserData() {
+        List<UserModel> listOfUser = userService.getAllUserData();
+        ResponseDto dto = new ResponseDto("Data retrieved successfully :", listOfUser);
+        return new ResponseEntity(dto, HttpStatus.OK);
     }
 
     @GetMapping("/get/{Id}")
@@ -36,24 +39,37 @@ public class UserController {
         ResponseDto responseDto = new ResponseDto("Success Call for User Id!!!", userModel);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
-    @PutMapping("/update/{id}")
-    public UserModel update(@RequestBody UserDto userDto , @PathVariable long id) {
-        return userService.update(userDto,id);
+
+    @PutMapping("/updateUserById/{id}")
+    public ResponseEntity<ResponseDto> updateRecordById(@PathVariable long id, @Valid @RequestBody UserDto userDto) {
+        UserModel updateRecord = userService.updateRecordById(userDto, id);
+        ResponseDto responseDto = new ResponseDto(" User Record updated successfully by Id", updateRecord);
+        return new ResponseEntity<>(responseDto, HttpStatus.ACCEPTED);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public UserModel delete(@PathVariable long id) {
-        return userService.delete(id);
 
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<ResponseDto> deleteUserData(@PathVariable long id) {
+        UserModel userModel= userService.deleteUserData(id);
+        ResponseDto responseDto=new ResponseDto("User Record Deleted Successfully",userModel);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
     @GetMapping("/login/{email}/{password}")
-    public String login(@PathVariable String email, @PathVariable String password) {
-        return userService.login(email,password);
-    }
-    @PutMapping("/verify/{token}")
-    public Optional<UserModel> verify(@PathVariable String token) {
-        return userService.verify(token);
+    public ResponseEntity<ResponseDto> loginUser(@PathVariable String email, @PathVariable String password) {
+        String userModel = userService.login(email,password);
+        ResponseDto responseDto = new ResponseDto("User Login Successfully",userModel);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
-}
+    @PutMapping("/verify/{token}")
+    public ResponseEntity<ResponseDto> loginVerify(@PathVariable("token")String token) {
+        Optional<UserModel> result = userService.verifyUser(token);
+        ResponseDto responseDTO = new ResponseDto("User Successfully Verified", "Verification Status : "
+                + result);
+        return new ResponseEntity<>(responseDTO, HttpStatus.OK);
+    }
+
+    }
+
+

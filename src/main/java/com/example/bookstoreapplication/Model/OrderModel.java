@@ -25,6 +25,8 @@ public class OrderModel {
     private double price;
     private int quantity;
     private String address;
+    private Integer totalPrice;
+
     @OneToOne
     @JoinColumn(name="userID")
     private UserModel user;
@@ -40,6 +42,7 @@ public class OrderModel {
         this.quantity=orderDto.getQuantity();
         this.user=userModel;
         this.book=bookModel;
+        this.totalPrice=orderDto.getPrice()*orderDto.getQuantity();
     }
 
     public OrderModel() {

@@ -25,21 +25,24 @@ public class BookController {
         return new ResponseEntity(responseDto, HttpStatus.CREATED);
     }
 
-    @GetMapping("/getlist")
-    public List<BookModel> getList(){
-        return bookService.getList();
+    @GetMapping("/getAll")
+    public ResponseEntity<ResponseDto> getAllBookData() {
+        List<BookModel> listOfBooks = bookService.getAllBookData();
+        ResponseDto dto = new ResponseDto("Data retrieved successfully :", listOfBooks);
+        return new ResponseEntity(dto, HttpStatus.OK);
     }
 
-    @PutMapping("/update/{id}")
-    public BookModel update(@RequestBody BookDto bookDto,@PathVariable long id) {
-        return bookService.update(bookDto,id);
+    @PutMapping("/updateBookById/{bookId}")
+    public ResponseEntity<ResponseDto> updateRecordById(@PathVariable long bookId, @Valid @RequestBody BookDto bookDto) {
+        BookModel updateRecord = bookService.updateRecordById(bookDto, bookId);
+        ResponseDto responseDto = new ResponseDto(" Book Record updated successfully by Id", updateRecord);
+        return new ResponseEntity<>(responseDto, HttpStatus.ACCEPTED);
     }
-
-    @DeleteMapping("/delete/{id}")
-    public BookModel delete(@PathVariable long id) {
-        return bookService.delete(id);
+    @DeleteMapping("/delete/{bookId}")
+    public String deleteRecordById(@PathVariable int bookId) {
+        bookService.deleteRecordByBookId(bookId);
+        return "Book Deleted.";
     }
-
 
     @GetMapping("/get/{Id}")
     public ResponseEntity<ResponseDto> getBookModelById(@PathVariable long Id) {

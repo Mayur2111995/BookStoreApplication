@@ -25,6 +25,8 @@ public class UserModel {
 
     private boolean verify;
 
+    private String token;
+
 
     public UserModel(UserDto userDto) {
      this.firstName=userDto.getFirstName();
@@ -32,6 +34,7 @@ public class UserModel {
      this.dob=userDto.getDob();
      this.password=userDto.getPassword();
      this.email=userDto.getEmail();
+     this.token=userDto.getToken();
     }
 
     public UserModel() {

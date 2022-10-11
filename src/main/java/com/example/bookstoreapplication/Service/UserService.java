@@ -27,28 +27,26 @@ public class UserService implements IUserService{
         UserModel userModel = new UserModel(userDto);
         userRepo.save(userModel);
 
-       // String token = tokenUtil.createToken((int) userModel.getId());
+       String token = tokenUtil.createToken((long) userModel.getId());
 
         String subject="User Registration Succesfull";
-       // String body = "http://localhost:8082/bookstore/verify/"+token;
+       String body = "http://localhost:8083/bookstore/verify/"+token;
         return userModel;
     }
 
-    @Override
-    public List<UserModel> getList() {
-        List<UserModel> list = userRepo.findAll();
-        return list;
-    }
 
+    @Override
+    public List<UserModel> getAllUserData() {
+        List<UserModel> getUser=userRepo.findAll();
+        return getUser;
+    }
     @Override
     public UserModel getUserModelById(long Id) {
         return userRepo.findById(Id)
                 .orElseThrow(() -> new BookException("User not found In the List"));
     }
-
-
     @Override
-    public UserModel update(UserDto userDto , long id) {
+    public UserModel updateRecordById(UserDto userDto, long id) {
         Optional<UserModel> user = userRepo.findById(id);
         user.get().setFirstName(userDto.getFirstName());
         user.get().setLastName(userDto.getLastName());
@@ -60,7 +58,7 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public UserModel delete(long id) {
+    public UserModel deleteUserData(long id) {
         Optional<UserModel> user = userRepo.findById(id);
         userRepo.delete(user.get());
         return user.get();
@@ -70,10 +68,13 @@ public class UserService implements IUserService{
     public String login(String email, String password) {
 
         Optional<UserModel> user = userRepo.findByEmail(email);
-        String token = "";
+        String token = "token";
+
         if (user.isPresent()) {
             if (user.get().getPassword().equals(password)) {
                 token = tokenUtil.createToken((long) user.get().getId());
+                user.get().setToken(token);
+                userRepo.save(user.get());
             }
 
         }
@@ -81,7 +82,7 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public Optional<UserModel> verify(String token) {
+    public Optional<UserModel> verifyUser(String token) {
         Long id = tokenUtil.decodeToken(token);
         Optional<UserModel> user = userRepo.findById(id);
         if(user.isPresent()) {
@@ -90,8 +91,5 @@ public class UserService implements IUserService{
         }
         return user;
     }
-
-
-
 
         }

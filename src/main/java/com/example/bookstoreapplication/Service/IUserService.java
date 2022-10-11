@@ -1,8 +1,11 @@
 package com.example.bookstoreapplication.Service;
 
+import com.example.bookstoreapplication.Dto.BookDto;
+import com.example.bookstoreapplication.Dto.LoginDto;
 import com.example.bookstoreapplication.Dto.UserDto;
 import com.example.bookstoreapplication.Model.UserModel;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,15 +14,17 @@ public interface IUserService {
 
     UserModel createUserModel(UserDto userDto);
 
-    List<UserModel> getList();
+
+    List<UserModel> getAllUserData();
 
     UserModel getUserModelById(long Id);
 
-    UserModel update(UserDto userDto, long id);
 
-    UserModel delete(long id);
+    UserModel updateRecordById(UserDto userDto, long id);
+
+    UserModel deleteUserData(long id);
 
     String login(String email, String password);
 
-    Optional<UserModel> verify(String token);
+    Optional<UserModel> verifyUser(String token);
 }

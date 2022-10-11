@@ -1,6 +1,4 @@
 package com.example.bookstoreapplication.Controller;
-
-
 import com.example.bookstoreapplication.Dto.OrderDto;
 import com.example.bookstoreapplication.Dto.ResponseDto;
 import com.example.bookstoreapplication.Model.OrderModel;
@@ -19,10 +17,10 @@ public class OrderController {
     @Autowired
     IOrderService orderService;
 
-@PostMapping("/create")
+@PostMapping("/bookOrder")
 public ResponseEntity<ResponseDto> createOrder(@Valid @RequestBody OrderDto orderDto){
     OrderModel newOrder = orderService.createOrder(orderDto);
-    ResponseDto dto = new ResponseDto("User registered successfully !",newOrder);
+    ResponseDto dto = new ResponseDto("Order registered successfully !",newOrder);
     return new ResponseEntity(dto, HttpStatus.CREATED);
 }
 
@@ -39,12 +37,5 @@ public ResponseEntity<ResponseDto> createOrder(@Valid @RequestBody OrderDto orde
         ResponseDto responseDto = new ResponseDto("Record deleted successfully !",newOrder);
         return new ResponseEntity(responseDto, HttpStatus.ACCEPTED);
     }
-
-//    @PutMapping("/updateOrder/{id}")
-//    public ResponseEntity<ResponseDto> updateBookRecord(@PathVariable long id,@Valid @RequestBody OrderDto orderDto){
-//        OrderModel newOrder = orderService.updateOrderRecord(id,orderDto);
-//        ResponseDto responseDto = new ResponseDto("Record updated successfully !",newOrder);
-//        return new ResponseEntity(responseDto,HttpStatus.ACCEPTED);
-//    }
 
 }

@@ -1,6 +1,7 @@
 package com.example.bookstoreapplication.Service;
 
 import com.example.bookstoreapplication.Dto.OrderDto;
+import com.example.bookstoreapplication.Email.EmailService;
 import com.example.bookstoreapplication.Model.BookModel;
 import com.example.bookstoreapplication.Model.OrderModel;
 import com.example.bookstoreapplication.Model.UserModel;
@@ -27,22 +28,27 @@ public class OrderService implements IOrderService {
     @Autowired
     IOrderRepository orderRepo;
 
+    @Autowired
+    MailService mailService;
+
     @Override
     public OrderModel createOrder(OrderDto orderDto) {
-        Optional<BookModel> book = bookRepo.findById(orderDto.getBookID());  //reference by inject bookrepo
-
+        Optional<BookModel> book = bookRepo.findById(orderDto.getBookID());
         Optional<UserModel> user = userRepo.findById(orderDto.getUserID());
-        if (book.isPresent() && user.isPresent()) {
-            if (orderDto.getQuantity() < book.get().getQuantity()) {
-                OrderModel newOrder = new OrderModel(orderDto, book.get(), user.get());
+        if(book.isPresent() && user.isPresent()) {
+            if(orderDto.getQuantity() < book.get().getQuantity()) {
+                OrderModel newOrder = new OrderModel(orderDto,book.get(),user.get());
                 orderRepo.save(newOrder);
                 book.get().setQuantity(book.get().getQuantity() - orderDto.getQuantity());
                 bookRepo.save(book.get());
+                mailService.send(user.get().getEmail(),"Your Order Placed successfully","Order");
+
                 return newOrder;
             }
         }
         return null;
     }
+
 
 
     @Override
@@ -63,29 +69,6 @@ public class OrderService implements IOrderService {
         }
     }
 
-//    @Override
-//    public OrderModel updateOrderRecord(long id, OrderDto orderDto) {
-//        Optional<OrderModel> order = orderRepo.findById(id);
-//        Optional<BookModel> book = bookRepo.findById(orderDto.getBookID());
-//        Optional<UserModel> user = userRepo.findById(orderDto.getUserID());
-//        if (order.isPresent()) {
-//            if (book.isPresent() && user.isPresent()) {
-//                if (orderDto.getQuantity() < book.get().getQuantity()) {
-//                    OrderModel newOrder = new OrderModel(id, orderDto.getQuantity(), orderDto.getAddress(), book.get(), user.get(), orderDto.isCancel());
-//                    orderRepo.save(newOrder);
-//                    return newOrder;
-//                } else {
-//                    return null;//Requested quantity is not available
-//                }
-//            } else {
-//                return null;//Book or User doesn't exists
-//
-//            }
-//
-//        } else {
-//            return null;//Order Record doesn't exist
-//        }
-//
-//    }
+
 }
 

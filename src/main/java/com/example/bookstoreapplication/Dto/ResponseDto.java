@@ -21,7 +21,7 @@ public class ResponseDto {
 
     }
 
-    public int getErrorCode() {
-        return 0;
-    }
+//    public int getErrorCode() {
+//        return 0;
+//    }
 }

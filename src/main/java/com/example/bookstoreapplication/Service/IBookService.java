@@ -11,15 +11,20 @@ public interface IBookService {
 
     BookModel createBook(BookDto bookDto);
 
-    List<BookModel> getList();
 
-    BookModel update(BookDto bookDto, long id);
+    List<BookModel> getAllBookData();
 
-    BookModel delete(long id);
+
+    BookModel updateRecordById(BookDto bookDto, long id);
+
+
+    BookModel deleteRecordById(long id);
 
     BookModel getBookModelById(long Id);
 
     List<BookModel> sortedListOfBooksInAscendingOrder();
 
     List<BookModel> sortedListOfBooksInDescendingOrder();
+
+    void deleteRecordByBookId(int bookId);
 }

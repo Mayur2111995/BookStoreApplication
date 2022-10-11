@@ -13,11 +13,16 @@ public class EmailService {
 
     public void sendEmail(String toEmail, String subject, String body) {
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-        simpleMailMessage.setFrom("adumaske@gmail.com");
+        simpleMailMessage.setFrom("barimayur1265@gmail.com");
         simpleMailMessage.setTo(toEmail);
         simpleMailMessage.setText(body);
         simpleMailMessage.setSubject(subject);
         javaMailSender.send(simpleMailMessage);
         System.out.println("Mail Sent Successfully...");
+    }
+
+
+    public void send(String email, String your_order_placed_successfully, String order) {
+
     }
 }

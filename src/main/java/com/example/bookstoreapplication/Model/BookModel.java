@@ -1,6 +1,7 @@
 package com.example.bookstoreapplication.Model;
 
 import com.example.bookstoreapplication.Dto.BookDto;
+import com.example.bookstoreapplication.Dto.CartDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -44,7 +45,4 @@ public class BookModel {
         super();
     }
 
-//    public Object getBookName() {
-//        return null;
-//    }
 }
