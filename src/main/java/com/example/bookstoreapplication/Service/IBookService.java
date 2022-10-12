@@ -11,14 +11,17 @@ public interface IBookService {
 
     BookModel createBook(BookDto bookDto);
 
-
     List<BookModel> getAllBookData();
-
 
     BookModel updateRecordById(BookDto bookDto, long id);
 
-
-    BookModel deleteRecordById(long id);
+    //    @Override
+    //    public BookModel deleteRecordById(long id) {
+    //        Optional<BookModel> book = bookRepo.findById(id);
+    //        bookRepo.delete(book.get());
+    //        return book.get();
+    //    }
+    BookModel deleteBookRecord(long id);
 
     BookModel getBookModelById(long Id);
 
@@ -26,5 +29,5 @@ public interface IBookService {
 
     List<BookModel> sortedListOfBooksInDescendingOrder();
 
-    void deleteRecordByBookId(int bookId);
+    //void deleteRecordByBookId(int bookId);
 }

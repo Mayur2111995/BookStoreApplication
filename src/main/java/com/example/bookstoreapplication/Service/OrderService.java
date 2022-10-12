@@ -3,6 +3,7 @@ package com.example.bookstoreapplication.Service;
 import com.example.bookstoreapplication.Dto.OrderDto;
 import com.example.bookstoreapplication.Email.EmailService;
 import com.example.bookstoreapplication.Model.BookModel;
+import com.example.bookstoreapplication.Model.CartModel;
 import com.example.bookstoreapplication.Model.OrderModel;
 import com.example.bookstoreapplication.Model.UserModel;
 import com.example.bookstoreapplication.Repository.IBookRepository;
@@ -41,20 +42,17 @@ public class OrderService implements IOrderService {
                 orderRepo.save(newOrder);
                 book.get().setQuantity(book.get().getQuantity() - orderDto.getQuantity());
                 bookRepo.save(book.get());
-                mailService.send(user.get().getEmail(),"Your Order Placed successfully","Order");
-
+                mailService.send(user.get().getEmail(),"Your Order Placed successfully", String.valueOf(newOrder));
                 return newOrder;
             }
         }
         return null;
     }
 
-
-
     @Override
     public List<OrderModel> getAllOrderRecords() {
-        List<OrderModel> orderList = orderRepo.findAll();
-        return orderList;
+        List<OrderModel> getOrder=orderRepo.findAll();
+        return getOrder;
     }
 
     @Override

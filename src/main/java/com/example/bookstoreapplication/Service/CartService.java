@@ -58,7 +58,7 @@ public class CartService implements ICartService {
         if (book.isPresent() && user.isPresent()) {
             if (cartDto.getQuantity() < book.get().getQuantity()) {
                 cart.get().setQuantity(cartDto.getQuantity());
-                cart.get().setBook(book.get());
+                cart.get().setBookID(book.get());
                 cartRepo.save(cart.get());
                 book.get().setQuantity(book.get().getQuantity() - (cartDto.getQuantity() - cart.get().getQuantity()));
                 bookRepo.save(book.get());
@@ -77,34 +77,32 @@ public class CartService implements ICartService {
         return cartList;
     }
 
-    @Override
-    public CartModel updateQuantity(String token, long cartId, int quantity) {
-        Long id = tokenUtil.decodeToken(token);
-        Optional<UserModel> user = userRepo.findById(id);
-        if (user.isPresent()) {
-            Optional<CartModel> cart = cartRepo.findById(cartId);
-            cart.get().setQuantity(quantity);
-            cart.get().setTotalPrice(quantity*cart.get().getBook().getPrice());
-            cartRepo.save(cart.get());
-            return cart.get();
-        }
-        return null;
-    }
+//    @Override
+//    public CartModel updateQuantity(String token, long cartId, int quantity) {
+//        Long id = tokenUtil.decodeToken(token);
+//        Optional<UserModel> user = userRepo.findById(id);
+//        if (user.isPresent()) {
+//            Optional<CartModel> cart = cartRepo.findById(cartId);
+//            cart.get().setQuantity(quantity);
+//            cart.get().setTotalPrice(quantity*cart.get().getBook().getPrice());
+//            cartRepo.save(cart.get());
+//            return cart.get();
+//        }
+//        return null;
+//    }
 
     @Override
     public CartModel updateQuantity(long cartId, int quantity) {
         Optional<CartModel> cart = cartRepo.findById(cartId);
         cart.get().setQuantity(quantity);
-        cart.get().setTotalPrice(quantity*cart.get().getBook().getPrice());
+        cart.get().setTotalPrice(quantity*cart.get().getBookID().getPrice());
         cartRepo.save(cart.get());
         return cart.get();
     }
-
     @Override
-    public int getCount() {
-        List list = cartRepo.findAll();
-        int count = list.size();
-        return count;
+    public List<CartModel> getAllCartRecords() {
+        List<CartModel> cartList = cartRepo.findAll();
+        return cartList;
     }
 
 

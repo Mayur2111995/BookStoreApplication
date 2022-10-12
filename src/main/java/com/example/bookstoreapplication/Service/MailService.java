@@ -17,9 +17,9 @@ public class MailService {
 
     public static void send(String toEmail, String subject, String body)
     {
-        final String fromEmail ="barimayur1265@gmail.com";
+        final String fromEmail ="barimayur1265@gmail.com";  //correct  for gmail id
         // requires valid gmail id
-        final String password ="blnvmjipbrzdxeus"; // correct password for gmail id
+        final String password ="oqpyuyiujdpjtmmp"; // correct password for gmail id
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
         // SMTP Host
@@ -46,7 +46,7 @@ public class MailService {
             msg.addHeader("format", "flowed");
             msg.addHeader("Content-Transfer-Encoding", "8bit");
             msg.setFrom(new InternetAddress("no_reply@gmail.com", "NoReply"));
-            msg.setReplyTo(InternetAddress.parse(("barimayur1265@gmail.com"), false));
+            msg.setReplyTo(InternetAddress.parse(("barimayur1265@gmail.com"), false));  //correct  for gmail id
             msg.setSubject(subject, "UTF-8");
             msg.setText(body, "UTF-8");
             msg.setSentDate(new Date());

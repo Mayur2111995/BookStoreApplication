@@ -17,7 +17,7 @@ public class OrderController {
     @Autowired
     IOrderService orderService;
 
-@PostMapping("/bookOrder")
+@PostMapping("/create")
 public ResponseEntity<ResponseDto> createOrder(@Valid @RequestBody OrderDto orderDto){
     OrderModel newOrder = orderService.createOrder(orderDto);
     ResponseDto dto = new ResponseDto("Order registered successfully !",newOrder);

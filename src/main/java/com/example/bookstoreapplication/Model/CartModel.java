@@ -16,17 +16,17 @@ public class CartModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @OneToOne
-    private UserModel user;
+    private UserModel userID;
     @OneToOne
-    private BookModel book;
+    private BookModel bookID;
     private Integer quantity;
     private Integer totalPrice;
 
     public CartModel(CartDto cartDto, BookModel bookModel, UserModel userModel) {
         this.quantity=cartDto.getQuantity();
         this.totalPrice=cartDto.getQuantity()*bookModel.getPrice();
-        this.book=bookModel;
-        this.user=userModel;
+        this.bookID=bookModel;
+        this.userID=userModel;
     }
 
     public CartModel() {

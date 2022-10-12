@@ -11,16 +11,14 @@ public interface ICartService {
 
     CartModel delete(long id);
 
-    CartModel updateQuantity(String token, long cartId, int quantity);
+//    CartModel updateQuantity(String token, long cartId, int quantity);
 
     CartModel updateCart(Long cartId, CartDto cartDto);
 
     List<CartModel> gerCartForUser(long id);
 
-    int getCount();
-
     CartModel updateQuantity(long cartId, int quantity);
 
 
-
+    List<CartModel> getAllCartRecords();
 }

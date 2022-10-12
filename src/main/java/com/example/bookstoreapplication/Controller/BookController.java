@@ -2,6 +2,7 @@ package com.example.bookstoreapplication.Controller;
 import com.example.bookstoreapplication.Dto.BookDto;
 import com.example.bookstoreapplication.Dto.ResponseDto;
 import com.example.bookstoreapplication.Model.BookModel;
+import com.example.bookstoreapplication.Model.OrderModel;
 import com.example.bookstoreapplication.Service.IBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,11 +39,18 @@ public class BookController {
         ResponseDto responseDto = new ResponseDto(" Book Record updated successfully by Id", updateRecord);
         return new ResponseEntity<>(responseDto, HttpStatus.ACCEPTED);
     }
-    @DeleteMapping("/delete/{bookId}")
-    public String deleteRecordById(@PathVariable int bookId) {
-        bookService.deleteRecordByBookId(bookId);
-        return "Book Deleted.";
+    @DeleteMapping("/deleteBook/{id}")
+    public ResponseEntity<ResponseDto> deleteRecordById(@PathVariable long id){
+        BookModel bookModel = bookService.deleteBookRecord(id);
+        ResponseDto responseDto = new ResponseDto("Record deleted successfully !",bookModel);
+        return new ResponseEntity(responseDto, HttpStatus.ACCEPTED);
     }
+
+
+    //public String deleteRecordById(@PathVariable int bookId) {
+      //  bookService.deleteRecordByBookId(bookId);
+        //return "Book Deleted.";
+
 
     @GetMapping("/get/{Id}")
     public ResponseEntity<ResponseDto> getBookModelById(@PathVariable long Id) {
