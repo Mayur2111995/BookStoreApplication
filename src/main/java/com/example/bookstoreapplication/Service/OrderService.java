@@ -1,12 +1,12 @@
 package com.example.bookstoreapplication.Service;
 
 import com.example.bookstoreapplication.Dto.OrderDto;
-import com.example.bookstoreapplication.Email.EmailService;
+import com.example.bookstoreapplication.Exception.BookException;
 import com.example.bookstoreapplication.Model.BookModel;
-import com.example.bookstoreapplication.Model.CartModel;
 import com.example.bookstoreapplication.Model.OrderModel;
 import com.example.bookstoreapplication.Model.UserModel;
 import com.example.bookstoreapplication.Repository.IBookRepository;
+import com.example.bookstoreapplication.Repository.ICartRepository;
 import com.example.bookstoreapplication.Repository.IOrderRepository;
 import com.example.bookstoreapplication.Repository.IUserRepository;
 import com.example.bookstoreapplication.Util.TokenUtil;
@@ -25,15 +25,21 @@ public class OrderService implements IOrderService {
     TokenUtil tokenUtil;
 
     @Autowired
+    ICartRepository cartRepo;
+
+    @Autowired
     IBookRepository bookRepo;
     @Autowired
     IOrderRepository orderRepo;
 
     @Autowired
+    ICartService cartService;
+
+    @Autowired
     MailService mailService;
 
     @Override
-    public OrderModel createOrder(OrderDto orderDto) {
+    public OrderModel createOrder(OrderDto orderDto, String token) {
         Optional<BookModel> book = bookRepo.findById(orderDto.getBookID());
         Optional<UserModel> user = userRepo.findById(orderDto.getUserID());
         if(book.isPresent() && user.isPresent()) {
@@ -42,7 +48,7 @@ public class OrderService implements IOrderService {
                 orderRepo.save(newOrder);
                 book.get().setQuantity(book.get().getQuantity() - orderDto.getQuantity());
                 bookRepo.save(book.get());
-                mailService.send(user.get().getEmail(),"Your Order Placed successfully", String.valueOf(newOrder));
+                mailService.send(user.get().getEmail(),"Your Order Placed successfully", String.valueOf(book.get()));
                 return newOrder;
             }
         }
@@ -56,7 +62,7 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public OrderModel deleteOrderRecord(long id) {
+    public OrderModel cancelOrderRecord(long id,String token) {
         Optional<OrderModel> order = orderRepo.findById(id);
         if (order.isPresent()) {
             orderRepo.deleteById(id);
@@ -67,6 +73,13 @@ public class OrderService implements IOrderService {
         }
     }
 
-
+    @Override
+    public List<OrderModel> getOrderItemByUserId(String token) {
+        long id = tokenUtil.decodeToken(token);
+        List<OrderModel> orders = orderRepo.findAllByUserId(id);
+        if(orders.isEmpty())
+            throw new BookException("No order placed by user with id "+id+"!");
+        return orders;
+    }
 }
 

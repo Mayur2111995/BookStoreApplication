@@ -27,6 +27,7 @@ public class OrderModel {
     private String address;
     private Integer totalPrice;
 
+
     @OneToOne
     @JoinColumn(name="userID")
     private UserModel user;
@@ -56,4 +57,5 @@ public class OrderModel {
 
     public OrderModel(long id, Integer quantity, String address, BookModel bookModel, UserModel userModel, Object cancel) {
     }
+
 }

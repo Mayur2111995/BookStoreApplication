@@ -40,17 +40,17 @@ public class UserController {
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
-    @PutMapping("/updateUserById/{id}")
-    public ResponseEntity<ResponseDto> updateRecordById(@PathVariable long id, @Valid @RequestBody UserDto userDto) {
-        UserModel updateRecord = userService.updateRecordById(userDto, id);
+    @PutMapping("/updateUserById/{id}/{token}")
+    public ResponseEntity<ResponseDto> updateRecordById(@PathVariable long id, @Valid @RequestBody UserDto userDto,@PathVariable String token) {
+        UserModel updateRecord = userService.updateRecordById(userDto, id,token);
         ResponseDto responseDto = new ResponseDto(" User Record updated successfully by Id", updateRecord);
         return new ResponseEntity<>(responseDto, HttpStatus.ACCEPTED);
     }
 
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<ResponseDto> deleteUserData(@PathVariable long id) {
-        UserModel userModel= userService.deleteUserData(id);
+    @DeleteMapping("/delete/{id}/{token}")
+    public ResponseEntity<ResponseDto> deleteUserData(@PathVariable long id,@PathVariable String token) {
+        UserModel userModel= userService.deleteUserData(id,token);
         ResponseDto responseDto=new ResponseDto("User Record Deleted Successfully",userModel);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }

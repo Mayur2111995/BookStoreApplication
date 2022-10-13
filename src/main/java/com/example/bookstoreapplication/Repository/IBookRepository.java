@@ -12,4 +12,5 @@ public interface IBookRepository extends JpaRepository<BookModel,Long> {
 
     @Query(value = "select * from book order by price desc", nativeQuery = true)
     List<BookModel> getSortedListOfBooksInDesc();
+
 }

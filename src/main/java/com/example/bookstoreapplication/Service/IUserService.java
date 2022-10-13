@@ -20,9 +20,9 @@ public interface IUserService {
     UserModel getUserModelById(long Id);
 
 
-    UserModel updateRecordById(UserDto userDto, long id);
+    UserModel updateRecordById(UserDto userDto, long id,String token);
 
-    UserModel deleteUserData(long id);
+    UserModel deleteUserData(long id,String token);
 
     String login(String email, String password);
 

@@ -7,15 +7,16 @@ import com.example.bookstoreapplication.Model.CartModel;
 import java.util.List;
 
 public interface ICartService {
-    CartModel create(CartDto cartDto);
 
-    CartModel delete(long id);
+    CartModel create(String token, CartDto cartDto);
+
+    CartModel delete(long id,String token);
 
 //    CartModel updateQuantity(String token, long cartId, int quantity);
 
-    CartModel updateCart(Long cartId, CartDto cartDto);
+    CartModel updateCart(Long cartId, CartDto cartDto,String token);
 
-    List<CartModel> gerCartForUser(long id);
+     List<CartModel> getCartItemByUserId(String token);
 
     CartModel updateQuantity(long cartId, int quantity);
 

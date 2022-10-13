@@ -17,9 +17,9 @@ public class OrderController {
     @Autowired
     IOrderService orderService;
 
-@PostMapping("/create")
-public ResponseEntity<ResponseDto> createOrder(@Valid @RequestBody OrderDto orderDto){
-    OrderModel newOrder = orderService.createOrder(orderDto);
+@PostMapping("/create/{token}")
+public ResponseEntity<ResponseDto> createOrder(@PathVariable String token, @Valid @RequestBody OrderDto orderDto){
+    OrderModel newOrder = orderService.createOrder(orderDto,token);
     ResponseDto dto = new ResponseDto("Order registered successfully !",newOrder);
     return new ResponseEntity(dto, HttpStatus.CREATED);
 }
@@ -31,11 +31,19 @@ public ResponseEntity<ResponseDto> createOrder(@Valid @RequestBody OrderDto orde
     return new ResponseEntity(responseDto, HttpStatus.OK);
 }
 
-    @DeleteMapping("/deleteOrder/{id}")
-    public ResponseEntity<ResponseDto> deleteOrderRecord(@PathVariable long id){
-        OrderModel newOrder = orderService.deleteOrderRecord(id);
-        ResponseDto responseDto = new ResponseDto("Record deleted successfully !",newOrder);
+    @PutMapping("/cancelOrder/{id}/{token}")
+    public ResponseEntity<ResponseDto> cancelOrderRecord(@PathVariable long id, @PathVariable String token){
+        OrderModel newOrder = orderService.cancelOrderRecord(id,token);
+        ResponseDto responseDto = new ResponseDto("Record cancel successfully !",newOrder);
         return new ResponseEntity(responseDto, HttpStatus.ACCEPTED);
     }
+
+    @GetMapping("/getOrderByUserId/{token}")
+    public ResponseEntity<ResponseDto> getOrderById(@PathVariable String token){
+        List<OrderModel> order = orderService.getOrderItemByUserId(token);
+        ResponseDto responseDto = new ResponseDto("Order details for user successful", order);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
+
 
 }

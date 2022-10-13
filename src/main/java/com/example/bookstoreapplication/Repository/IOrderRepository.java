@@ -12,4 +12,5 @@ public interface IOrderRepository extends JpaRepository<OrderModel,Long> {
     @Query(value = "SELECT * FROM mybookstore.order;", nativeQuery = true)
     List<OrderModel> listOrder();
 
+    List<OrderModel> findAllByUserId(long id);
 }

@@ -46,7 +46,7 @@ public class UserService implements IUserService{
                 .orElseThrow(() -> new BookException("User not found In the List"));
     }
     @Override
-    public UserModel updateRecordById(UserDto userDto, long id) {
+    public UserModel updateRecordById(UserDto userDto, long id,String token) {
         Optional<UserModel> user = userRepo.findById(id);
         user.get().setFirstName(userDto.getFirstName());
         user.get().setLastName(userDto.getLastName());
@@ -58,7 +58,7 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public UserModel deleteUserData(long id) {
+    public UserModel deleteUserData(long id,String token) {
         Optional<UserModel> user = userRepo.findById(id);
         userRepo.delete(user.get());
         return user.get();

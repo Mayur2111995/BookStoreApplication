@@ -15,12 +15,7 @@ public interface IBookService {
 
     BookModel updateRecordById(BookDto bookDto, long id);
 
-    //    @Override
-    //    public BookModel deleteRecordById(long id) {
-    //        Optional<BookModel> book = bookRepo.findById(id);
-    //        bookRepo.delete(book.get());
-    //        return book.get();
-    //    }
+
     BookModel deleteBookRecord(long id);
 
     BookModel getBookModelById(long Id);

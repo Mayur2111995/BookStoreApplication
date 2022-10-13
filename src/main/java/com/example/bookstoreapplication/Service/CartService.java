@@ -2,6 +2,7 @@ package com.example.bookstoreapplication.Service;
 
 
 import com.example.bookstoreapplication.Dto.CartDto;
+import com.example.bookstoreapplication.Exception.BookException;
 import com.example.bookstoreapplication.Model.BookModel;
 import com.example.bookstoreapplication.Model.CartModel;
 import com.example.bookstoreapplication.Model.UserModel;
@@ -28,7 +29,8 @@ public class CartService implements ICartService {
     IBookRepository bookRepo;
 
     @Override
-    public CartModel create(CartDto cartDto) {
+    public CartModel create(String token, CartDto cartDto) {
+        long userID = Math.toIntExact(tokenUtil.decodeToken(token));
         Optional<BookModel> book = bookRepo.findById(cartDto.getBookID());
         Optional<UserModel> user = userRepo.findById(cartDto.getUserID());
         if (book.isPresent() && user.isPresent()) {
@@ -44,14 +46,14 @@ public class CartService implements ICartService {
     }
 
     @Override
-    public CartModel delete(long id) {
+    public CartModel delete(long id,String token) {
         Optional<CartModel> cart = cartRepo.findById(id);
         cartRepo.delete(cart.get());
         return cart.get();
     }
 
     @Override
-    public CartModel updateCart(Long id, CartDto cartDto) {
+    public CartModel updateCart(Long id, CartDto cartDto,String token) {
         Optional<CartModel> cart = cartRepo.findById(id);
         Optional<BookModel> book = bookRepo.findById(cartDto.getBookID());
         Optional<UserModel> user = userRepo.findById(cartDto.getUserID());
@@ -69,13 +71,21 @@ public class CartService implements ICartService {
     }
 
 
-    @Override
-    public List<CartModel> gerCartForUser(long id) {
-//		Long id = tokenUtil.decodeToken(token);
-        Optional<UserModel> user = userRepo.findById(id);
-        List<CartModel> cartList = cartRepo.findAllByUserId(id);
-        return cartList;
-    }
+//    @Override
+//    public List<CartModel> gerCartForUser(long id) {
+////		Long id = tokenUtil.decodeToken(token);
+//        Optional<UserModel> user = userRepo.findById(id);
+//        List<CartModel> cartList = cartRepo.findAllByUserId(id);
+//        return cartList;
+//    }
+     @Override
+     public List<CartModel> getCartItemByUserId(String token) {
+     int id = Math.toIntExact(tokenUtil.decodeToken(token));
+     List<CartModel> cartList= cartRepo.getCartsByUserId(id);
+     if (cartList.isEmpty())
+        throw new BookException("Cart with User token "+token+" not found!");
+    return cartList;
+}
 
 //    @Override
 //    public CartModel updateQuantity(String token, long cartId, int quantity) {
