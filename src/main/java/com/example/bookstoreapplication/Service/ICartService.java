@@ -5,6 +5,7 @@ import com.example.bookstoreapplication.Dto.CartDto;
 import com.example.bookstoreapplication.Model.CartModel;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ICartService {
 
@@ -22,4 +23,6 @@ public interface ICartService {
 
 
     List<CartModel> getAllCartRecords();
+
+    Optional<CartModel> getCartDetailsById(long id);
 }

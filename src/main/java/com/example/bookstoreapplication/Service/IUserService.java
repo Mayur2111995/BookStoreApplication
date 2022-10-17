@@ -27,4 +27,5 @@ public interface IUserService {
     String login(String email, String password);
 
     Optional<UserModel> verifyUser(String token);
+
 }

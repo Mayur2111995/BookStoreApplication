@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface IOrderRepository extends JpaRepository<OrderModel,Long> {
 
+
     @Query(value = "SELECT * FROM mybookstore.order;", nativeQuery = true)
     List<OrderModel> listOrder();
 

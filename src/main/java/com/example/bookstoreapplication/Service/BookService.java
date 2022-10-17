@@ -46,23 +46,18 @@ public class BookService  implements IBookService {
         return book.get();
     }
 
-//    @Override
-//    public BookModel deleteRecordById(long id) {
-//        Optional<BookModel> book = bookRepo.findById(id);
-//        bookRepo.delete(book.get());
-//        return book.get();
-//    }
-@Override
-public BookModel deleteBookRecord(long id) {
-    Optional<BookModel> book = bookRepo.findById(id);
-    if (book.isPresent()) {
+
+     @Override
+     public BookModel deleteBookRecord(long id) {
+     Optional<BookModel> book = bookRepo.findById(id);
+     if (book.isPresent()) {
         bookRepo.deleteById(id);
         return book.get();
 
     } else {
         return null;     //Order Record doesn't exists
     }
-}
+  }
     @Override
     public BookModel getBookModelById(long Id) {
         return bookRepo.findById(Id)
@@ -80,10 +75,5 @@ public BookModel deleteBookRecord(long id) {
         return getSortedListInDesc;
 
     }
-
-//    @Override
-//    public void deleteRecordByBookId(int bookId) {
-//
-//    }
 
 }

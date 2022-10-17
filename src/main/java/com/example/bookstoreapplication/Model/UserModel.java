@@ -29,12 +29,12 @@ public class UserModel {
 
 
     public UserModel(UserDto userDto) {
-     this.firstName=userDto.getFirstName();
-     this.lastName=userDto.getLastName();
-     this.dob=userDto.getDob();
-     this.password=userDto.getPassword();
-     this.email=userDto.getEmail();
-     this.token=userDto.getToken();
+        this.firstName=userDto.getFirstName();
+        this.lastName=userDto.getLastName();
+        this.dob=userDto.getDob();
+        this.password=userDto.getPassword();
+        this.email=userDto.getEmail();
+        this.token=userDto.getToken();
     }
 
     public UserModel() {
@@ -54,5 +54,4 @@ public class UserModel {
     public void update(UserDto userDto) {
 
     }
-
 }

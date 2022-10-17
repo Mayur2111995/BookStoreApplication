@@ -4,7 +4,6 @@ package com.example.bookstoreapplication.Model;
 import com.example.bookstoreapplication.Dto.OrderDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -35,15 +34,19 @@ public class OrderModel {
     @JoinColumn(name="bookID")
     private BookModel book;
     private boolean cancel;
+    @JoinColumn(name="id")
+    @OneToOne
+    private CartModel cartModel;
 
 
-    public OrderModel(OrderDto orderDto, BookModel bookModel, UserModel userModel) {
+    public OrderModel(OrderDto orderDto, BookModel bookModel, UserModel userModel,CartModel cartModel) {
         this.address=orderDto.getAddress();
-        this.price=orderDto.getPrice();
-        this.quantity=orderDto.getQuantity();
+        this.price=bookModel.getPrice();
+        this.quantity=cartModel.getQuantity();
         this.user=userModel;
         this.book=bookModel;
-        this.totalPrice=orderDto.getPrice()*orderDto.getQuantity();
+        this.cartModel=cartModel;
+        this.totalPrice=cartModel.getTotalPrice();
     }
 
     public OrderModel() {

@@ -8,11 +8,14 @@ import java.util.List;
 public interface IOrderService {
 
 
-    OrderModel createOrder(OrderDto orderDto,String token);
+    OrderModel createOrder(OrderDto orderDto, String token);
 
     List<OrderModel> getAllOrderRecords();
 
-    OrderModel cancelOrderRecord(long id,String token);
+   // OrderModel cancelOrderRecord(long id,String token);
+
+
+    OrderModel cancelOrderRecord(String token, long Id);
 
     List<OrderModel> getOrderItemByUserId(String token);
 }

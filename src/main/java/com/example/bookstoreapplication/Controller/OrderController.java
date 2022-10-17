@@ -17,12 +17,13 @@ public class OrderController {
     @Autowired
     IOrderService orderService;
 
-@PostMapping("/create/{token}")
-public ResponseEntity<ResponseDto> createOrder(@PathVariable String token, @Valid @RequestBody OrderDto orderDto){
-    OrderModel newOrder = orderService.createOrder(orderDto,token);
-    ResponseDto dto = new ResponseDto("Order registered successfully !",newOrder);
-    return new ResponseEntity(dto, HttpStatus.CREATED);
-}
+    @PostMapping("/create/{token}")
+    public ResponseEntity<ResponseDto> createOrder(@PathVariable String token, @Valid @RequestBody OrderDto orderDto){
+       // System.out.println("inside this"+orderDto.getCartID());
+        OrderModel newOrder = orderService.createOrder(orderDto,token);
+        ResponseDto dto = new ResponseDto("Order registered successfully !",newOrder);
+        return new ResponseEntity(dto, HttpStatus.CREATED);
+    }
 
     @GetMapping("/AllOrders")
     public ResponseEntity<ResponseDto> getAllOrderRecords(){
@@ -33,7 +34,7 @@ public ResponseEntity<ResponseDto> createOrder(@PathVariable String token, @Vali
 
     @PutMapping("/cancelOrder/{id}/{token}")
     public ResponseEntity<ResponseDto> cancelOrderRecord(@PathVariable long id, @PathVariable String token){
-        OrderModel newOrder = orderService.cancelOrderRecord(id,token);
+        OrderModel newOrder = orderService.cancelOrderRecord(token, id);
         ResponseDto responseDto = new ResponseDto("Record cancel successfully !",newOrder);
         return new ResponseEntity(responseDto, HttpStatus.ACCEPTED);
     }

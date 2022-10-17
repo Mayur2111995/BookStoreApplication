@@ -28,10 +28,16 @@ public class CartModel {
         this.bookID=bookModel;
         this.userID=userModel;
     }
+    public CartModel(long Id,CartDto cartDto, BookModel bookModel, UserModel userModel) {
+        this.id=Id;
+        this.quantity=cartDto.getQuantity();
+        this.totalPrice=cartDto.getQuantity()*bookModel.getPrice();
+        this.bookID=bookModel;
+        this.userID=userModel;
+    }
 
     public CartModel() {
         super();
     }
-
 }
 

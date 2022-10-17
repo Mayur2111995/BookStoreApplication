@@ -15,7 +15,7 @@ import java.util.Properties;
 @Slf4j
 public class MailService {
 
-    public static void send(String toEmail, String subject, String body)
+    public static void send(String toEmail, String subject, String body,String Book,String totalPrice)
     {
         final String fromEmail ="barimayur1265@gmail.com";  //correct  for gmail id
         // requires valid gmail id
@@ -48,7 +48,7 @@ public class MailService {
             msg.setFrom(new InternetAddress("no_reply@gmail.com", "NoReply"));
             msg.setReplyTo(InternetAddress.parse(("barimayur1265@gmail.com"), false));  //correct  for gmail id
             msg.setSubject(subject, "UTF-8");
-            msg.setText(body, "UTF-8");
+            msg.setText(body+Book+" totalPrice= "+totalPrice, "UTF-8");
             msg.setSentDate(new Date());
             msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail, false));
             Transport.send(msg);
